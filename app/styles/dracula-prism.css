@@ -33,6 +33,7 @@ http://prismjs.com/download.html#themes=prism&languages=markup+css+clike+javascr
   --purple: #bd93f9;
   --red: #ff5555;
   --yellow: #f1fa8c;
+  --sky: #0ea5e9;
 
   /* Transparency */
 
@@ -49,6 +50,7 @@ http://prismjs.com/download.html#themes=prism&languages=markup+css+clike+javascr
   --purple-30: #bd93f933;
   --red-30: #ff555533;
   --yellow-30: #f1fa8c33;
+  --sky-30: #0ea5e933;
 
   /** 40% of transparency **/
   --background-40: #282a3666;
@@ -63,6 +65,7 @@ http://prismjs.com/download.html#themes=prism&languages=markup+css+clike+javascr
   --purple-40: #bd93f966;
   --red-40: #ff555566;
   --yellow-40: #f1fa8c66;
+  --sky-40: #0ea5e966;
 }
 
 pre::-webkit-scrollbar {
@@ -75,7 +78,7 @@ pre::-webkit-scrollbar-track {
 }
 
 pre::-webkit-scrollbar-thumb {
-  background-color: var(--purple);
+  background-color: var(--sky);
   border-radius: 0px;
 }
 
@@ -198,7 +201,7 @@ div.code-toolbar > .toolbar span:hover,
 div.code-toolbar > .toolbar span:focus {
   color: inherit;
   text-decoration: none;
-  background-color: var(--green);
+  background-color: var(--purple);
 }
 
 /* Remove text shadow for printing */
@@ -215,7 +218,7 @@ pre[class*="language-"] {
   color: var(--foreground);
   background: var(--background);
   text-shadow: none;
-  font-family: PT Mono, Consolas, Monaco, "Andale Mono", "Ubuntu Mono",
+  font-family: DankMono, PT Mono, Consolas, Monaco, "Andale Mono", "Ubuntu Mono",
     monospace;
   text-align: left;
   white-space: pre;
@@ -284,15 +287,25 @@ pre[class*="language-"] {
 }
 
 .language-css {
-  color: var(--purple);
+  color: var(--sky);
+}
+
+.language-bash {
+  font-style: normal;
+}
+
+.language-bash .token.function {
+  font-style: normal;
+  color: var(--white);
 }
 
 .token {
-  color: var(--pink);
+  color: var(--cyan);
+  font-style: normal;
 }
 
 .language-css .token {
-  color: var(--pink);
+  color: var(--cyan);
 }
 
 .token.script {
@@ -310,25 +323,26 @@ pre[class*="language-"] {
 .token.atrule,
 .token.attr-name,
 .token.attr-value {
-  color: var(--green);
+  color: var(--purple);
 }
 
 .language-css .token.atrule {
-  color: var(--purple);
+  color: var(--sky);
 }
 
 .language-html .token.attr-value,
 .language-markup .token.attr-value {
-  color: var(--yellow);
+  color: var(--purple);
 }
 
 .token.boolean {
-  color: var(--purple);
+  color: var(--sky);
 }
 
 .token.builtin,
 .token.class-name {
   color: var(--cyan);
+  font-style: italic;
 }
 
 .token.comment {
@@ -336,7 +350,7 @@ pre[class*="language-"] {
 }
 
 .token.constant {
-  color: var(--purple);
+  color: var(--sky);
 }
 
 .language-javascript .token.constant {
@@ -345,31 +359,32 @@ pre[class*="language-"] {
 }
 
 .token.entity {
-  color: var(--pink);
+  color: var(--cyan);
 }
 
 .language-css .token.entity {
-  color: var(--green);
+  color: var(--purple);
 }
 
 .language-html .token.entity.named-entity {
-  color: var(--purple);
+  color: var(--sky);
 }
 
 .language-html .token.entity:not(.named-entity) {
-  color: var(--pink);
+  color: var(--cyan);
 }
 
 .language-markup .token.entity.named-entity {
-  color: var(--purple);
+  color: var(--sky);
 }
 
 .language-markup .token.entity:not(.named-entity) {
-  color: var(--pink);
+  color: var(--cyan);
 }
 
 .token.function {
-  color: var(--green);
+  color: var(--purple);
+  font-style: italic;
 }
 
 .language-css .token.function {
@@ -378,7 +393,7 @@ pre[class*="language-"] {
 
 .token.important,
 .token.keyword {
-  color: var(--pink);
+  color: var(--cyan);
 }
 
 .token.prolog {
@@ -394,7 +409,7 @@ pre[class*="language-"] {
 }
 
 .token.punctuation {
-  color: var(--pink);
+  color: var(--white);
 }
 
 .language-css .token.punctuation {
@@ -406,12 +421,16 @@ pre[class*="language-"] {
   color: var(--foreground);
 }
 
+pre code {
+  font-style: italic;
+}
+
 .token.selector {
-  color: var(--pink);
+  color: var(--cyan);
 }
 
 .language-css .token.selector {
-  color: var(--green);
+  color: var(--purple);
 }
 
 .token.regex {
@@ -423,11 +442,15 @@ pre[class*="language-"] {
 }
 
 .token.string {
-  color: var(--yellow);
+  color: var(--purple);
+}
+
+.token.tag .token.punctuation {
+  color: var(--cyan);
 }
 
 .token.tag {
-  color: var(--pink);
+  color: var(--white);
 }
 
 .token.url {
@@ -470,7 +493,7 @@ pre[class*="language-"] {
 
 .highlight-line {
   color: inherit;
-  display: inline-block;
+  display: block;
   text-decoration: none;
 
   border-radius: 4px;
@@ -499,9 +522,59 @@ pre[class*="language-"] {
 }
 
 .highlight-line-add {
-  background-color: var(--green-30);
+  background-color: var(--purple-30);
 }
 
 .highlight-line-remove {
   background-color: var(--red-30);
+}
+
+pre {
+  overflow-x: auto;
+}
+
+/**
+ * Inspired by gatsby remark prism - https://www.gatsbyjs.com/plugins/gatsby-remark-prismjs/
+ * 1. Make the element just wide enough to fit its content.
+ * 2. Always fill the visible space in .code-highlight.
+ */
+.code-highlight {
+  float: left; /* 1 */
+  min-width: 100%; /* 2 */
+}
+
+.code-line {
+  display: block;
+  padding-left: 16px;
+  padding-right: 16px;
+  margin-left: -16px;
+  margin-right: -16px;
+  border-left-width: 4px;
+  border-left-color: rgba(31, 41, 55, 0); /* Set code block color */
+}
+
+.code-line.inserted {
+  background-color: rgba(16, 185, 129, 0.2); /* Set inserted line (+) color */
+}
+
+.code-line.deleted {
+  background-color: rgba(239, 68, 68, 0.2); /* Set deleted line (-) color */
+}
+
+.highlight-line {
+  margin-left: -16px;
+  margin-right: -16px;
+  background-color: var(--sky-30); /* Set highlight bg color */
+  border-left-width: 12px;
+  border-left-color: var(--sky); /* Set highlight accent border color */
+}
+
+.line-number::before {
+  display: inline-block;
+  width: 1rem;
+  text-align: right;
+  margin-right: 16px;
+  margin-left: -8px;
+  color: rgb(156, 163, 175); /* Line number color */
+  content: attr(line);
 }

@@ -16,8 +16,4 @@ module.exports = {
       rehypePlugins: [rehypeSlug.default, rehypePrism.default],
     };
   },
-  // appDirectory: "app",
-  // assetsBuildDirectory: "public/build",
-  // serverBuildPath: "functions/[[path]].js",
-  // publicPath: "/build/",
 };

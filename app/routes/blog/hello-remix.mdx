@@ -1,5 +1,5 @@
 ---
-title: Building a blog with Remix, Cloudflare, Tailwind and MDX
+title: Building a blog with Remix, Cloudflare, and Tailwind CSS
 # description:
 date: 2022-04-02 17:00:00
 tags: [javascript, cloudflare]
@@ -10,3 +10,114 @@ tags: [javascript, cloudflare]
 <span className="text-md text-slate-600">
   Posted {(attributes.date).toDateString()}
 </span>
+
+## Getting Started
+### Stack considerations
+
+`npx create-remix@latest` is the first command to run. You can pick a deployment target, and name for you app. I chose Cloudflare Pages and `josephlozano.xyz`.
+
+Cloudflare pages has some interested tradeoffs compared the the other options. Generally, remix deployments fall into 3 categories:
+
+* Long running servers
+* Nodejs serverless functions
+* v8 Edge functions
+
+**Long running servers** is what you'll get if you choose
+<span className="underline">Remix App Server</span>,
+<span className="underline">Express Server</span>, or
+<span className="underline">Fly.io</span>.
+These can give you most control over your deployment, and if you are building an application with a database, you can put that database in the same datacenter as your app.
+This can be a big boost for read-heavy applications.
+The tradeoff is that these deployments are usually more expensive, and you'll have to manage scaling on your own.
+
+**Nodejs serverless functions** are if you choose
+<span className="underline">Netlify</span>,
+<span className="underline">AWS Lamda</span>, or
+<span className="underline">Vercel</span> as deployment targets.
+These are usually cheapter to run your app compared to long running servers (unless you are excecuting them millions of times a months), and you don't have to worry about scaling.
+If you are developing and app, you will have a bit extra time for your database reads, as your database probably won't be in the same datacenter as your app (unless you are all-in with AWS).
+If the function has not been executed in some time, it may to have a "cold start", which increases response time.
+
+**v8 Edge functions** are what you get if you choose Cloudflare Workers or Cloudflare Pages. Like Node serverless functions, they are relatively inexpensive, and you don't need to worry about scaling at all. They also do not have ever have to "cold start". The downside is that they do not run Node, so some libraries may not work. Cloudflare has KV storage, and Durable Objects, but if you want a traditional database, there may be a bit of read latency.
+
+For a read heavy application that relies on a database, I would go with Fly.io. You can deploy you app, as well as database read replica's all over the world, but you will have to pay monthly for it.
+
+Since this blog does not use a database, and doesn't need any libraries that depend on NodeJs, I chose to go with Cloudflare Pages. Deployment is super easy, and readers nearly anywhere in the world can visit the blog with minimal latency thanks to the Cloudflare CDN.
+
+Tailwind CSS for me is automatic. I don't want to muck around with CSS, so creating components and styling them with Tailwind CSS is the way to go for me.
+
+I also installed the tailwind/typography plugin, and added it to my `tailwind.config.js` file for neat prose typography.
+
+## Contunuing on the blog
+
+After running the create command, and picking Cloudflare Pages, I followed the [instructions to add TailwindCSS to Remix](https://remix.run/docs/en/v1/guides/styling#tailwind-css).
+
+I then set up Prettier and ESLint `npm install eslint prettier prettier-plugin-tailwind`, and created the
+[.eslintrc](https://github.com/joseph-lozano/josephlozano.xyz/blob/main/.eslintrc),
+[.eslintignore](https://github.com/joseph-lozano/josephlozano.xyz/blob/main/.eslintignore), and
+[.prettierignore](https://github.com/joseph-lozano/josephlozano.xyz/blob/main/.prettierignore) files).
+
+### The Blog
+
+I won't dive too deeply into Remix and nested routes. But I will say I created `routes/blog.tsx`, `routes/blog/index.tsx`. The `blog.tsx` file has an `<Outlet />` component that will render our articles. I wrapped the outlet with the `prose` class.
+
+```tsx {4-6}
+export default function BlogLayout() {
+  return (
+    <>
+      <article className="prose mx-auto max-w-4xl px-4 py-20">
+        <Outlet />
+      </article>
+    </>
+  );
+}
+```
+
+### MDX
+
+Next, I set up the blog for MDX.
+
+```bash
+npm install mdx-prism prismjs rehype-primsm-plus rehype-slug remark-prism
+```
+
+Then edit your `remix.config.js` to export a `mdx` function. This is what mine looks like.
+
+```js showLineNumbers {9-18}
+/**
+ * @type {import('@remix-run/dev').AppConfig}
+ */
+module.exports = {
+  serverBuildTarget: "cloudflare-pages",
+  server: "./server.js",
+  devServerBroadcastDelay: 1000,
+  ignoredRouteFiles: [".*"],
+  mdx: async () => {
+    const rehypeSlug = await import("rehype-slug");
+    const rehypePrism = await import("rehype-prism-plus");
+    const remarkGfm = await import("remark-gfm");
+
+    return {
+      remarkPlugins: [remarkGfm.default],
+      rehypePlugins: [rehypeSlug.default, rehypePrism.default],
+    };
+  },
+};
+```
+
+You'll want to find a Prism stylesheet. I based mine on the [Dracula theme](https://draculatheme.com/prism).
+
+Make sure you also add the CSS from the [rehype-prism-plus README](https://github.com/timlrx/rehype-prism-plus/blob/main/README.md?plain=1#L118) (this lets line highlights and line numbers show up nicely).
+I've customized this a bit to match the dracula theme. I placed these styles under `app/styles` in my project, and imported them with `export const links` in my blog file.
+
+Now I have syntax highlighting, line numbers, and I can highlight key lines.
+
+After that, just create `app/routes/blog/*.mdx` files, and write!
+MDX has some superpowers over regular markdown.
+You can read more at the [mdx website](https://mdxjs.com/).
+
+
+
+
+
+
