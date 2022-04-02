@@ -1,10 +1,11 @@
 import type { MetaFunction } from "@remix-run/cloudflare";
 import {
+  Link,
   Links,
   LiveReload,
   Meta,
   Outlet,
-  Scripts,
+  // Scripts,
   ScrollRestoration,
 } from "@remix-run/react";
 import type { LinksFunction } from "@remix-run/cloudflare";
@@ -26,9 +27,20 @@ export default function App() {
         <Links />
       </head>
       <body>
-        <Outlet />
+        <div className="flex min-h-screen flex-col">
+          <div className="flex h-16 items-center bg-sky-500 px-8 text-xl font-bold text-slate-100 hover:text-slate-200">
+            <ul className="items-center">
+              <Link to="/blog">
+                <li>Blog</li>
+              </Link>
+            </ul>
+          </div>
+          <div className="flex-grow">
+            <Outlet />
+          </div>
+        </div>
         <ScrollRestoration />
-        <Scripts />
+        {/* <Scripts /> */}
         <LiveReload />
       </body>
     </html>
