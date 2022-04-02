@@ -1,18 +1,21 @@
-import * as hellNo from "./hell-no-or-yeah.mdx";
+import * as helloRemix from "./hello-remix.mdx";
 import type { LoaderFunction } from "@remix-run/cloudflare";
 import { Link, useLoaderData } from "@remix-run/react";
 
+export const allPosts = [helloRemix];
+
 type LoaderData = {
-  recentPosts: typeof hellNo[];
-  highlightedPosts: typeof hellNo[];
+  recentPosts: typeof helloRemix[];
+  highlightedPosts: typeof helloRemix[];
 };
 export const loader: LoaderFunction = async () => {
-  const recentPosts = [hellNo];
-  const highlightedPosts = [hellNo];
+  const recentPosts = [helloRemix];
+  const highlightedPosts = [helloRemix];
 
   return {
     recentPosts,
     highlightedPosts,
+    allPosts,
   };
 };
 
@@ -30,7 +33,7 @@ export default function BlogIndex() {
           {recentPosts.map((post) => (
             <div
               key={post.filename}
-              className="relative flex items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400"
+              className="relative flex items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-sky-500 focus-within:ring-offset-2 hover:border-gray-400"
             >
               <div className="min-w-0 flex-1">
                 <Link
@@ -58,7 +61,7 @@ export default function BlogIndex() {
             {highlightedPosts.map((post) => (
               <div
                 key={post.filename}
-                className="relative flex items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-indigo-500 focus-within:ring-offset-2 hover:border-gray-400"
+                className="relative flex items-center space-x-3 rounded-lg border border-gray-300 bg-white px-6 py-5 shadow-sm focus-within:ring-2 focus-within:ring-sky-500 focus-within:ring-offset-2 hover:border-gray-400"
               >
                 <div className="min-w-0 flex-1">
                   <Link
