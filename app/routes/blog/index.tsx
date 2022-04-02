@@ -1,6 +1,7 @@
 import * as helloRemix from "./hello-remix.mdx";
 import type { LoaderFunction } from "@remix-run/cloudflare";
 import { Link, useLoaderData } from "@remix-run/react";
+import { toDateString } from "~/utils/date";
 
 export const allPosts = [helloRemix];
 
@@ -44,9 +45,16 @@ export default function BlogIndex() {
                   <p className="text-md font-medium text-gray-900">
                     {post.attributes.title}
                   </p>
-                  <p className="text-sm text-gray-500">
-                    {post.attributes.description}
-                  </p>
+                  {post.attributes.date && (
+                    <p className="text-sm text-gray-500">
+                      Posted {new Date(post.attributes.date).toDateString()}
+                    </p>
+                  )}
+                  {post.attributes.description && (
+                    <p className="text-sm text-gray-500">
+                      {post.attributes.description}
+                    </p>
+                  )}
                 </Link>
               </div>
             </div>
