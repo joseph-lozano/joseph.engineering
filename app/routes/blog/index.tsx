@@ -1,7 +1,6 @@
 import * as helloRemix from "./hello-remix.mdx";
 import type { LoaderFunction } from "@remix-run/cloudflare";
 import { Link, useLoaderData } from "@remix-run/react";
-import { toDateString } from "~/utils/date";
 
 export const allPosts = [helloRemix];
 
@@ -10,8 +9,8 @@ type LoaderData = {
   highlightedPosts: typeof helloRemix[];
 };
 export const loader: LoaderFunction = async () => {
-  const recentPosts = [helloRemix];
-  const highlightedPosts = [helloRemix];
+  const recentPosts: LoaderData["recentPosts"] = [];
+  const highlightedPosts: LoaderData["highlightedPosts"] = [];
 
   return {
     recentPosts,
@@ -27,9 +26,10 @@ export default function BlogIndex() {
     <>
       <main className="max-w-7xl">
         <h1 className="text-3xl font-bold leading-5">Welcome to my blog</h1>
-        <h2 className="leading-2 text-2xl font-semibold">
+        <h3>Posts coming soon</h3>
+        {/* <h2 className="leading-2 text-2xl font-semibold">
           Here are some recent posts:
-        </h2>
+        </h2> */}
         <div className="grid grid-cols-1 gap-4 sm:grid-cols-1">
           {recentPosts.map((post) => (
             <div
