@@ -38,7 +38,7 @@ These are usually cheapter to run your app compared to long running servers (unl
 If you are developing and app, you will have a bit extra time for your database reads, as your database probably won't be in the same datacenter as your app (unless you are all-in with AWS).
 If the function has not been executed in some time, it may to have a "cold start", which increases response time.
 
-**v8 Edge functions** are what you get if you choose Cloudflare Workers or Cloudflare Pages. Like Node serverless functions, they are relatively inexpensive, and you don't need to worry about scaling at all. They also do not have ever have to "cold start". The downside is that they do not run Node, so some libraries may not work. Cloudflare has KV storage, and Durable Objects, but if you want a traditional database, there may be a bit of read latency.
+**v8 Edge functions** are what you get if you choose Cloudflare Workers or Cloudflare Pages. Like Node serverless functions, they are relatively inexpensive, and you don't need to worry about scaling at all. They also do not have ever have to "cold start". The downside is that they do not run Node, so some libraries may not work. Cloudflare has KV and Durable Objects for storage, but if you want a traditional database, there may be a bit of read latency.
 
 For a read heavy application that relies on a database, I would go with Fly.io. You can deploy you app, as well as database read replica's all over the world, but you will have to pay monthly for it.
 
@@ -48,7 +48,7 @@ Tailwind CSS for me is automatic. I don't want to muck around with CSS, so creat
 
 I also installed the tailwind/typography plugin, and added it to my `tailwind.config.js` file for neat prose typography.
 
-## Contunuing on the blog
+### More Setup
 
 After running the create command, and picking Cloudflare Pages, I followed the [instructions to add TailwindCSS to Remix](https://remix.run/docs/en/v1/guides/styling#tailwind-css).
 

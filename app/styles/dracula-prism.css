@@ -393,7 +393,7 @@ pre[class*="language-"] {
 
 .token.important,
 .token.keyword {
-  color: var(--cyan);
+  color: var(--green);
 }
 
 .token.prolog {
