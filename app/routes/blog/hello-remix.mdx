@@ -8,35 +8,43 @@ tags: [javascript, cloudflare]
 # { attributes.title }
 
 <span className="text-md text-slate-600">
-  Posted {(attributes.date).toDateString()}
+  Posted {attributes.date.toDateString()}
 </span>
 
 ## Getting Started
+
 ### Stack considerations
 
 `npx create-remix@latest` is the first command to run. You can pick a deployment target, and name for you app. I chose Cloudflare Pages.
 
 Cloudflare pages has some interested tradeoffs compared the the other options. Generally, remix deployments fall into 3 categories:
 
-* Long running servers
-* Nodejs serverless functions
-* v8 Edge functions
+- Long running servers
+- Nodejs serverless functions
+- v8 Edge functions
 
 **Long running servers** is what you'll get if you choose
+
 <span className="underline">Remix App Server</span>,
 <span className="underline">Express Server</span>, or
-<span className="underline">Fly.io</span>.
-These can give you most control over your deployment, and if you are building an application with a database, you can put that database in the same datacenter as your app.
-This can be a big boost for read-heavy applications.
-The tradeoff is that these deployments are usually more expensive, and you'll have to manage scaling on your own.
+<span className="underline">Fly.io</span>. These can give you most control over your
+deployment, and if you are building an application with a database, you can put that
+database in the same datacenter as your app. This can be a big boost for read-heavy
+applications. The tradeoff is that these deployments are usually more expensive,
+and you'll have to manage scaling on your own.
 
 **Nodejs serverless functions** are if you choose
+
 <span className="underline">Netlify</span>,
 <span className="underline">AWS Lamda</span>, or
-<span className="underline">Vercel</span> as deployment targets.
-These are usually cheapter to run your app compared to long running servers (unless you are excecuting them millions of times a months), and you don't have to worry about scaling.
-If you are developing and app, you will have a bit extra time for your database reads, as your database probably won't be in the same datacenter as your app (unless you are all-in with AWS).
-If the function has not been executed in some time, it may to have a "cold start", which increases response time.
+<span className="underline">Vercel</span> as deployment targets. These are
+usually cheapter to run your app compared to long running servers (unless you
+are excecuting them millions of times a months), and you don't have to worry
+about scaling. If you are developing and app, you will have a bit extra time for
+your database reads, as your database probably won't be in the same datacenter
+as your app (unless you are all-in with AWS). If the function has not been
+executed in some time, it may to have a "cold start", which increases response
+time.
 
 **v8 Edge functions** are what you get if you choose Cloudflare Workers or Cloudflare Pages. Like Node serverless functions, they are relatively inexpensive, and you don't need to worry about scaling at all. They also do not have ever have to "cold start". The downside is that they do not run Node, so some libraries may not work. Cloudflare has KV and Durable Objects for storage, but if you want a traditional database, there may be a bit of read latency.
 
